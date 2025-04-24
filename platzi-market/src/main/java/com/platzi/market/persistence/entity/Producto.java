@@ -27,4 +27,6 @@ public class Producto {
 
     private Boolean estado;
 
+
+
 }
