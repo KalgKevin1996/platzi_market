@@ -4,13 +4,15 @@ package com.platzi.market.persistence.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Table(name = "clientes")
 @Data
 public class Cliente {
     @Id
-    @Column(name = "id", nullable = false, length = 20)
-    private String id;
+    @Column(name = "id_cliente", nullable = false, length = 20)
+    private String idCliente;
 
     @Column(name = "nombre", length = 40)
     private String nombre;
@@ -27,6 +29,7 @@ public class Cliente {
     @Column(name = "correo_electronico", length = 70)
     private String correoElectronico;
 
-
+    @OneToMany(mappedBy = "cliente")
+    private List<Compra> compras;
 
 }

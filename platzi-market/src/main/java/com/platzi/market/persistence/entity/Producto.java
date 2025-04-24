@@ -3,6 +3,8 @@ package com.platzi.market.persistence.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Table(name= "productos")
 @Data
@@ -33,5 +35,6 @@ public class Producto {
     @JoinColumn(name = "id_categoria", insertable = false, updatable = false)
     private Categoria categoria;
 
-
+    @OneToMany(mappedBy = "producto")
+    private List<ComprasProducto> comprasProductos;
 }
