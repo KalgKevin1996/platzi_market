@@ -11,25 +11,15 @@ import java.math.BigDecimal;
 @Data
 
 public class ComprasProducto {
+    @EmbeddedId
+    private ComprasProductoPK id;
 
-    @Id
-    @Column(name = "id_compra", nullable = false)
-    private Integer idCompra;
-
-    @Id
-    @Column(name = "id_producto", nullable = false)
-    private Integer idProducto;
-
-    @Column(name = "cantidad")
     private Integer cantidad;
-
-    @Column(name = "total", precision = 16, scale = 2)
-    private BigDecimal total;
-
-    @Column(name = "estado")
+    private Double total;
     private Boolean estado;
 
     @ManyToOne
+    @MapsId("idCompra")
     @JoinColumn(name = "id_compra",insertable = false, updatable = false)
     private Compra compra;
 
