@@ -25,8 +25,17 @@ public interface ProductMapper {
     Product toProduct(Producto producto);
     List<Product> toProducts(List<Producto> productos);
 
-    @InheritConfiguration
-    @Mapping(target = "codigoBarras", ignore = true)
+
+    @Mappings({
+            @Mapping(source = "productId", target = "idProducto"),
+            @Mapping(source = "name", target = "nombre"),
+            @Mapping(source = "categoryId", target = "idCategoria"),
+            @Mapping(source = "price", target = "precioVenta"),
+            @Mapping(source = "stock", target = "cantidadStock"),
+            @Mapping(source = "active", target = "estado"),
+            @Mapping(source = "category", target = "categoria"),
+            @Mapping(target = "codigoBarras", ignore = true) // No mandas código de barras, así que lo ignoras
+    })
     Producto toProducto(Product product);
 
 
