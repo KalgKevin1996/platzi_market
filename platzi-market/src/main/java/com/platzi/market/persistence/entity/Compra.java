@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -34,7 +35,8 @@ public class Compra {
     private Cliente cliente;
 
     @OneToMany(mappedBy = "compra", cascade = {CascadeType.ALL})
-    private List<ComprasProducto> Productos;
+    private List<ComprasProducto> productos = new ArrayList<>();
+
 
 
 }

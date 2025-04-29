@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 public class Purchase {
-    private int purchaseId;
+    private Integer purchaseId;
     private String clienteId;
     private LocalDateTime date;
     private String paymentMethod;

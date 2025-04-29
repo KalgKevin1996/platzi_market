@@ -9,24 +9,27 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
 import java.util.List;
+@Mapper(componentModel = "spring", uses = {PurchaseItemMapper.class})
+public abstract class PurchaseMapper {
 
-@Mapper(componentModel = "spring", uses = {PurchaseMapper.class})
-public interface PurchaseMapper {
+    public abstract Purchase toPurchase(Compra compra);
+    public abstract List<Purchase> toPurchases(List<Compra> compras);
 
-    @Mappings({
-            @Mapping(source = "idCompra",target = "purchaseId"),
-            @Mapping(source = "idCliente",target = "clienteId"),
-            @Mapping(source = "fecha",target = "date"),
-            @Mapping(source = "medioPago",target = "paymentMethod"),
-            @Mapping(source = "comentario",target = "comment"),
-            @Mapping(source = "estado",target = "state"),
-            @Mapping(source = "productos",target = "items"),
-    })
-    Purchase toPurchase(Compra compra);
-    List<Purchase> toPurchases(List<Compra> compras);
+    public Compra toCompra(Purchase purchase) {
+        Compra compra = internalToCompra(purchase);
 
+        // ⚠️ Aquí va la lógica: evitar setear ID si es 0
+        if (purchase.getPurchaseId() != null && purchase.getPurchaseId() != 0) {
+            compra.setIdCompra(purchase.getPurchaseId());
+        } else {
+            compra.setIdCompra(null);
+        }
 
-    @InheritInverseConfiguration
+        return compra;
+    }
+
+    @InheritInverseConfiguration(name = "toPurchase")
     @Mapping(target = "cliente", ignore = true)
-    Compra toCompra(Purchase purchase);
+    protected abstract Compra internalToCompra(Purchase purchase);
 }
+
